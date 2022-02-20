@@ -64,7 +64,7 @@ export default class Todo extends Component {
                     <h3>My todo list</h3>
                     <List>
                         <Input placeholder='Добавить todo в список' onPressEnter={(e) => this.handlerAddToTodo(e)}/>
-                        {todoList.map((item,index)=>{
+                        {todoList.slice(start, end).map((item,index)=>{
                             return(
                                     
                                     <List.Item key={index} style={{listStyle: 'decimal', textDecoration : item.completed ? 'line-through' : 'none'}} >
