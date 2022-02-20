@@ -1,4 +1,5 @@
 import { Button, Checkbox, List, Col, Input } from 'antd';
+import { Pagination } from 'antd';
 import React, {Component } from 'react';
 
 export default class Todo extends Component {
@@ -44,8 +45,18 @@ export default class Todo extends Component {
         let defVariable = [{id: Math.random(), title:e.target.value, completed: false}]
         this.setState({todoList : [...this.state.todoList, ...defVariable] })
     }
+    
+    handlerChangePagination = (page, pageSize) => {
+        console.log(page, pageSize)
+        this.setState({perPage : pageSize, curentPage: page})
+    }
+    
     render(){
         const {todoList} = this.state;
+        const {curentPage} = this.state;
+        const {perPage} = this.state;
+        const end = curentPage*perPage;
+        const start = end - perPage;
         
         return(
             <>
@@ -64,6 +75,8 @@ export default class Todo extends Component {
                             )
                         })}
                     </List>
+
+                      <Pagination defaultCurrent={curentPage} defaultPageSize={perPage} total={todoList.length} onChange={(page, pageSize) => this.handlerChangePagination(page, pageSize)} />
                 </Col>
             </>
         )
